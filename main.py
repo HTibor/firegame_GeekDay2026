@@ -24,21 +24,17 @@ def handle_server_message(message):
 
                 fire_data = data["SeenFires"]
                 for fire in fire_data:
-                    fire_postion_data = fire["Position"]
-                    map.update_fires(
-                        fire_postion_data["X"], fire_postion_data["Y"], hp=1000
-                    )
+                    map.update_fires(fire["X"], fire["Y"], hp=1000)
 
                 water_data = data["SeenWaters"]
                 for water in water_data:
-                    water_postion_data = water["Position"]
                     map.update_waters(
-                        water_postion_data["X"],
-                        water_postion_data["Y"],
-                        water_postion_data["IsEmpty"],
+                        water["X"],
+                        water["Y"],
+                        water["IsEmpty"],
                     )
                 print(map)
-            # print(units_data)
+            print(units_data)
 
 
 def main():
