@@ -14,14 +14,18 @@ class FireTracker:
     def update_tile(self, x, y, hp, tick):
         key = (x, y)
         prev = self.fire_tiles.get(key, {}).get("hp", hp)
-        self.fire_tiles[key] = {"hp": hp, "prev_hp": prev, "last_seen_tick": tick}
+        if hp <= 0:
+            if key in self.fire_tiles:
+                del self.fire_tiles[key]
+        else:
+            self.fire_tiles[key] = {"hp": hp, "prev_hp": prev, "last_seen_tick": tick}
 
     def remove_stale(self, current_tick, stale_threshold=300): # may want to fine tune later
         """Drop tiles not seen for stale_threshold ticks."""
         dead = [
             k
             for k, v in self.fire_tiles.items()
-            if current_tick - v["last_seen_tick"] >= stale_threshold
+            if current_tick - v["last_seen_tick"] >= stale_threshold or v["hp"] <= 0
         ]
         for k in dead:
             del self.fire_tiles[k]
@@ -44,6 +48,7 @@ class FireTracker:
                     continue
                 remaining.discard((cx, cy))
                 group.add((cx, cy))
+                # Only add neighbors that actually have > 0 HP and exist
                 for nx in range(cx - r, cx + r + 1):
                     for ny in range(cy - r, cy + r + 1):
                         if (nx, ny) in remaining:

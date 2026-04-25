@@ -20,6 +20,7 @@ class FighterBrain(UnitBrain):
         self.grind_target = None     # (x, y) specific fire tile to extinguish next
         self._last_dx = 0
         self._last_dy = 0
+        self._stale_fire_max_age = 4
 
     # ── GOTO_CLUSTER ───────────────────────────────────────────────────────────
 
@@ -69,12 +70,32 @@ class FighterBrain(UnitBrain):
             return
         x, y = p
 
+        # Check if the cluster is still alive
+        if not self._cluster_still_alive(world):
+            print(f"[Fighter:{self.unit_id}] cluster stale/empty at {self.cluster_target} -> retarget")
+            self.cluster_target = None
+            self.transition("GOTO_CLUSTER")
+            return
+
         # pick nearest adjacent fire tile
         self.grind_target = self._nearest_adjacent_fire(world, x, y)
 
         if self.grind_target is not None:
-            self.send_move(client, Operation.EXTINGUISH)
-            return
+            tx, ty = self.grind_target
+            info = world.fire_tracker.fire_tiles.get((tx, ty))
+            hp = info.get("hp") if info else None
+            last_seen = info.get("last_seen_tick") if info else None
+            age = world._tick - last_seen if last_seen is not None else None
+            if hp is None or hp <= 0:
+                print(f"[Fighter:{self.unit_id}] adjacent target invalid fire({tx},{ty}) hp={hp}")
+                self.grind_target = None
+            elif age is not None and age > self._stale_fire_max_age:
+                print(f"[Fighter:{self.unit_id}] adjacent target stale fire({tx},{ty}) hp={hp} age={age}")
+                self.grind_target = None
+            else:
+                print(f"[Fighter:{self.unit_id}] EXTINGUISH fire({tx},{ty}) hp={hp} age={age if age is not None else '?'}")
+                self.send_move(client, Operation.EXTINGUISH)
+                return
 
         # no adjacent fire — move toward nearest fire in cluster
         nearest_fire = self._nearest_fire_in_cluster(world, x, y)
@@ -128,16 +149,27 @@ class FighterBrain(UnitBrain):
         from config import FIRE_CLUSTER_RADIUS
         return any(
             abs(fx - cx) + abs(fy - cy) <= FIRE_CLUSTER_RADIUS * 3
-            for fx, fy in world.fires
+            and world._tick - world.fire_tracker.fire_tiles[(fx, fy)]["last_seen_tick"] <= self._stale_fire_max_age
+            for fx, fy in world.fire_tracker.fire_tiles.keys()
         )
 
     def _nearest_adjacent_fire(self, world, x, y):
         best, best_dist = None, float("inf")
-        for (fx, fy) in world.fires:
+        for (fx, fy) in list(world.fires.keys()):
             dist = abs(fx - x) + abs(fy - y)
             if dist <= 1 and dist < best_dist:
                 best_dist = dist
                 best = (fx, fy)
+
+        if best is None:
+            for (fx, fy), info in world.fire_tracker.fire_tiles.items():
+                if world._tick - info["last_seen_tick"] > self._stale_fire_max_age:
+                    continue
+                dist = abs(fx - x) + abs(fy - y)
+                if dist <= 1 and dist < best_dist:
+                    best_dist = dist
+                    best = (fx, fy)
+
         return best
 
     def _nearest_fire_in_cluster(self, world, x, y):

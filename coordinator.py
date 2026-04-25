@@ -122,13 +122,34 @@ class Coordinator:
         print(f"[Status] tick={world._tick}  fires={n_fires}  clusters={n_clusters}"
               f"  east={world.east_bound}  south={world.south_bound}"
               f"  waters={len(world.water_sources)}")
+        
+        for c in world.fire_tracker.clusters:
+            cx, cy = c["centroid"]
+            size = c["size"]
+            tiles = c["tiles"]
+            hps = [world.fire_tracker.fire_tiles[t]["hp"] for t in tiles if t in world.fire_tracker.fire_tiles]
+            if not hps:
+                continue
+            min_hp, max_hp = min(hps), max(hps)
+            print(f"  [Cluster] cx={cx:.1f} cy={cy:.1f}  size={size}  hp_range=[{min_hp}, {max_hp}]")
+
         for uid, (x, y, utype, water) in world.units.items():
             brain = self.unit_brains.get(uid)
             state = brain.state if brain else "?"
             vision = world.vision_calibrator.get_radius(uid)
             target = ""
             if brain and hasattr(brain, "fire_target") and brain.fire_target:
-                target = f" → fire{brain.fire_target}"
+                tx, ty = brain.fire_target
+                info = world.fire_tracker.fire_tiles.get((tx, ty))
+                hp = info.get("hp") if info else "?"
+                age = world._tick - info["last_seen_tick"] if info else "?"
+                target = f" → fire({tx},{ty}) hp={hp} age={age}"
+            elif brain and hasattr(brain, "snipe_target") and brain.snipe_target:
+                tx, ty = brain.snipe_target
+                info = world.fire_tracker.fire_tiles.get((tx, ty))
+                hp = info.get("hp") if info else "?"
+                age = world._tick - info["last_seen_tick"] if info else "?"
+                target = f" → fire({tx},{ty}) hp={hp} age={age}"
             elif brain and hasattr(brain, "cluster_target") and brain.cluster_target:
                 cx, cy = brain.cluster_target
                 target = f" → cluster({int(cx)},{int(cy)})"

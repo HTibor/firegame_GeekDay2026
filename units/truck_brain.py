@@ -18,6 +18,7 @@ class TruckBrain(UnitBrain):
         self.water_target = None     # (x, y) water tile to refill at
         self._last_dx = 0
         self._last_dy = 0
+        self._stale_fire_max_age = 4
 
     # ── GOTO_FIRE ──────────────────────────────────────────────────────────────
 
@@ -84,11 +85,31 @@ class TruckBrain(UnitBrain):
             return
 
         # fire gone?
-        if self.fire_target not in world.fires:
+        if self.fire_target not in world.fires and self.fire_target not in world.fire_tracker.fire_tiles:
+            print(f"[Truck:{self.unit_id}] target gone fire={self.fire_target} -> retarget")
             self.fire_target = None
             self.transition("GOTO_FIRE")
             return
 
+        tx, ty = self.fire_target
+        info = world.fire_tracker.fire_tiles.get((tx, ty))
+        hp = info.get("hp") if info else None
+        last_seen = info.get("last_seen_tick") if info else None
+        age = world._tick - last_seen if last_seen is not None else None
+
+        if hp is None or hp <= 0:
+            print(f"[Truck:{self.unit_id}] target invalid fire({tx},{ty}) hp={hp} -> retarget")
+            self.fire_target = None
+            self.transition("GOTO_FIRE")
+            return
+
+        if age is not None and age > self._stale_fire_max_age:
+            print(f"[Truck:{self.unit_id}] target stale fire({tx},{ty}) hp={hp} age={age} -> retarget")
+            self.fire_target = None
+            self.transition("GOTO_FIRE")
+            return
+
+        print(f"[Truck:{self.unit_id}] EXTINGUISH fire({tx},{ty}) hp={hp} age={age if age is not None else '?'}")
         self.send_move(client, Operation.EXTINGUISH)
 
     # ── GOTO_WATER ─────────────────────────────────────────────────────────────
@@ -168,6 +189,14 @@ class TruckBrain(UnitBrain):
         if not world.fires:
             return None
         return min(world.fires.keys(), key=lambda p: abs(p[0] - x) + abs(p[1] - y))
+
+    def transition(self, new_state):
+        # reset refill counter on leaving REFILL
+        if self.state == "REFILL":
+            self._refill_ticks = 0
+        super().transition(new_state)
+
+
 """
     def _check_opportunistic_snipe(self, world, x, y, dest_x, dest_y):
         
@@ -193,8 +222,3 @@ class TruckBrain(UnitBrain):
                 return True
         return False
 """
-    def transition(self, new_state):
-        # reset refill counter on leaving REFILL
-        if self.state == "REFILL":
-            self._refill_ticks = 0
-        super().transition(new_state)

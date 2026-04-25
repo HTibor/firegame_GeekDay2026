@@ -33,6 +33,7 @@ class DroneBrain(UnitBrain):
         # SNIPE state
         self.snipe_target = None
         self.going_to_water = False
+        self._snipe_ticks  = 0   # ticks spent on current snipe_target
 
     # ── FIND_BOUNDS ────────────────────────────────────────────────────────────
     # Two clean phases:
@@ -117,11 +118,6 @@ class DroneBrain(UnitBrain):
               f"  map={east+1}×{south+1}  strip_h={h}")
 
     def _on_SWEEP(self, world, client):
-        # if we discover fires during sweep, snipe immediately, then resume
-        if world.fires:
-            self.transition("SNIPE")
-            return
-
         p = self.pos(world)
         if p is None:
             return
@@ -168,6 +164,10 @@ class DroneBrain(UnitBrain):
             utype = world.units.get(self.unit_id, (0, 0, "firecopter", 0))[2]
             damage = self._get_damage(utype)
             self.snipe_target = self._pick_snipe_target(world, x, y, w, damage)
+            if self.snipe_target is not None:
+                tx, ty = self.snipe_target
+                hp = world.fire_tracker.fire_tiles.get((tx, ty), {}).get("hp", "?")
+                print(f"[Drone:{self.unit_id}] selected snipe_target=({tx},{ty}) hp={hp} available_damage={w*damage}")
             if self.snipe_target is None:
                 if world.fires:
                     # nothing killable with current water but fires exist —
@@ -184,8 +184,10 @@ class DroneBrain(UnitBrain):
                         self.transition("PATROL")
                     return
 
-        tx, ty = self.snipe_target
+        tx, ty = self.snipe_agetarget
         if abs(x - tx) <= 1 and abs(y - ty) <= 1:
+            hp = world.fire_tracker.fire_tiles.get((tx, ty), {}).get("hp", "?")
+            print(f"[Drone:{self.unit_id}] EXTINGUISH fire({tx},{ty}) hp={hp}")
             self.send_move(client, Operation.EXTINGUISH)
             if w <= 1:
                 self.going_to_water = True

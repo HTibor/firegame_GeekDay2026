@@ -42,7 +42,7 @@ class WorldState:
         units_data = json.loads(message.extraJson)
 
         # dump raw JSON for the first few ticks so we can see exact field names
-        if self._tick <= _RAW_DUMP_TICKS:
+        if True: 
             print(f"\n[RAW tick={self._tick}] {json.dumps(units_data, indent=2)}\n")
 
         prev_fire_count = len(self.fires)
