@@ -23,7 +23,11 @@ def handle_server_message(message):
             for data in units_data:
                 postion_data = data["Position"]
                 map.update_units(
-                    postion_data["X"], postion_data["Y"], data["Id"], data["UnitType"]
+                    postion_data["X"],
+                    postion_data["Y"],
+                    data["Id"],
+                    data["UnitType"],
+                    data["CurrentWterLevel"],
                 )
 
                 fire_data = data["SeenFires"]
@@ -59,7 +63,7 @@ def main():
     client.send_command(unit_id=25, operation=Operation.NOP)
 
     while True:
-        for unit_id, (x, y, unit_type) in list(map.units.items()):
+        for unit_id, (x, y, unit_type, units_water) in list(map.units.items()):
             try:
                 print(f"Moving Unit[{unit_id}] RIGHT...")
                 client.send_command(unit_id=unit_id, operation=Operation.RIGHT)
