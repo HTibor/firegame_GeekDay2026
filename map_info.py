@@ -21,5 +21,5 @@ class map_info:
     def update_obsticles(self, x, y):
         self.obsticles[(x, y)] = True
 
-    def update_units(self, x, y, id):
-        self.units[id] = (x, y)
+    def update_units(self, x, y, id, unit_type):
+        self.units[id] = (x, y, unit_type)

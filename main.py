@@ -4,13 +4,14 @@ import map_info
 from game_client import FireRaClient, Operation
 
 # Import the modified WebViz
-from web_viz import WebViz 
+from web_viz import WebViz
 
 our_units = []
 our_commands = []
 
 # 1. Create your map
 map = map_info.map_info()
+
 
 def handle_server_message(message):
     """Callback function triggered whenever the server sends data."""
@@ -21,7 +22,9 @@ def handle_server_message(message):
             units_data = json.loads(message.extraJson)
             for data in units_data:
                 postion_data = data["Position"]
-                map.update_units(postion_data["X"], postion_data["Y"], data["Id"])
+                map.update_units(
+                    postion_data["X"], postion_data["Y"], data["Id"], data["UnitType"]
+                )
 
                 fire_data = data["SeenFires"]
                 for fire in fire_data:
@@ -34,8 +37,9 @@ def handle_server_message(message):
                         water["Y"],
                         water["IsEmpty"],
                     )
-            
-        print(units_data)   
+
+        print(units_data)
+
 
 def main():
     # --- LAUNCH WEB VISUALIZER ---
@@ -53,7 +57,7 @@ def main():
     time.sleep(1)
 
     client.send_command(unit_id=25, operation=Operation.NOP)
-    
+
     while True:
         for unit_id, position in list(map.units.items()):
             try:
@@ -66,5 +70,7 @@ def main():
                 client.close()
                 return
 
+
 if __name__ == "__main__":
     main()
+
