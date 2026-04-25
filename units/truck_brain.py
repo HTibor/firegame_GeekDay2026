@@ -110,8 +110,7 @@ class TruckBrain(UnitBrain):
             #return
 
         print(f"[Truck:{self.unit_id}] EXTINGUISH fire({tx},{ty}) hp={hp} age={age if age is not None else '?'}")
-        targetpayload = json.dumps({"target": {"x": tx, "y": ty}})
-        self.send_move(client, Operation.EXTINGUISH, extra_json=targetpayload)
+        self.send_move(client, Operation.EXTINGUISH)
 
     # ── GOTO_WATER ─────────────────────────────────────────────────────────────
 

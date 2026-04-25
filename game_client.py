@@ -85,7 +85,7 @@ class FireRaClient:
         self._stream_thread.start()
         print("Bidirectional stream started.")
 
-    def send_command(self, unit_id, operation, extra_json=""):
+    def send_command(self, unit_id, operation):
         """Queues a command to be sent to the server."""
         if not self._is_running:
             print("Cannot send command. Stream is not running.")
@@ -96,8 +96,7 @@ class FireRaClient:
             teamName=self.team_name,
             counter=self.counter,
             unitId=unit_id,
-            operation=operation,
-            extraJson=extra_json,
+            operation=operation
         )
         self._command_queue.put(cmd)
 
