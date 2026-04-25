@@ -3,19 +3,20 @@ import json
 import map_info
 from game_client import FireRaClient, Operation
 
+# Import the modified WebViz
+from web_viz import WebViz 
 
 our_units = []
 our_commands = []
-map = map_info.map_info()
 
+# 1. Create your map
+map = map_info.map_info()
 
 def handle_server_message(message):
     """Callback function triggered whenever the server sends data."""
     op = message.operation
 
     if op == "UnitsFromServer":
-        print(f"\n[SERVER] Received unit data! (Counter: {message.counter})")
-        # Load the extraJson payload containing your unit states
         if message.extraJson:
             units_data = json.loads(message.extraJson)
             for data in units_data:
@@ -33,50 +34,37 @@ def handle_server_message(message):
                         water["Y"],
                         water["IsEmpty"],
                     )
-                print(map)
-            print(units_data)
-
+            
+        print(units_data)   
 
 def main():
-    # 1. Initialize client (Replace host with the actual IP)
-    # Using secure=False for local/test networks if SSL certs aren't strictly validated
+    # --- LAUNCH WEB VISUALIZER ---
+    viz = WebViz(map)  # Pass the map directly!
+    viz.start(port=5000)
+    # -----------------------------
+
     client = FireRaClient(
         team_name="Prometheus", host="10.4.4.59", port=5001, secure=False
     )
 
-    # 2. Test Connection
     print("Testing connection...")
     client.say_hello()
-
-    # 3. Start receiving streaming data
     client.start_stream(on_message_callback=handle_server_message)
-
-    # Allow a moment for the stream to establish
     time.sleep(1)
 
     client.send_command(unit_id=25, operation=Operation.NOP)
+    
     while True:
-        for unit in our_units:
+        for unit_id, position in list(map.units.items()):
             try:
-                # 4. Issue commands to units
-                unit_to_move = unit  # Example unit ID
-
-                print(f"Moving Unit[{unit_to_move}] 1 UP...")
-                client.send_command(unit_id=unit_to_move, operation=Operation.RIGHT)
+                print(f"Moving Unit[{unit_id}] RIGHT...")
+                client.send_command(unit_id=unit_id, operation=Operation.RIGHT)
                 time.sleep(0.5)
-
-                # Keep the main thread alive while background stream thread does its work
-                # while True:
-                #   time.sleep(1)
 
             except KeyboardInterrupt:
                 print("\nDisconnecting...")
                 client.close()
                 return
-            # finally:
-            #   client.close()
-            #  return
-
 
 if __name__ == "__main__":
     main()

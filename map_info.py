@@ -19,7 +19,7 @@ class map_info:
         self.water_sources[(x, y)] = value
 
     def update_obsticles(self, x, y):
-        self.obsticles[(x, y)]
+        self.obsticles[(x, y)] = True
 
     def update_units(self, x, y, id):
         self.units[id] = (x, y)
