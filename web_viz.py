@@ -15,7 +15,11 @@ body { background: #0e0e0e; color: #ddd; font-family: monospace;
        display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
 #bar { padding: 6px 14px; background: #161616; border-bottom: 1px solid #2a2a2a;
-       display: flex; gap: 20px; align-items: center; font-size: 13px; flex-shrink: 0; }
+       display: flex; gap: 20px; align-items: center; font-size: 13px; flex-shrink: 0; 
+       overflow-x: auto; white-space: nowrap; }
+#bar::-webkit-scrollbar { height: 4px; }
+#bar::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+
 #bar b { color: #fff; }
 .lbl { opacity: .55; font-size: 11px; margin-right: 2px; }
 .v-fire  { color: #f74; }
@@ -23,7 +27,9 @@ body { background: #0e0e0e; color: #ddd; font-family: monospace;
 .v-obs   { color: #999; }
 .v-enemy { color: #f55; }
 .v-coord { color: #aaa; }
-#status  { margin-left: auto; font-size: 12px; }
+.v-unit-pos { color: #ffb; font-size: 12px; }
+
+#status  { margin-left: auto; font-size: 12px; position: sticky; right: 0; background: #161616; padding-left: 10px; }
 
 canvas { flex: 1; display: block; cursor: crosshair; }
 
@@ -43,9 +49,9 @@ canvas { flex: 1; display: block; cursor: crosshair; }
   <span><span class="lbl">known</span><b id="s-known">0</b></span>
   <span><span class="lbl">fire</span><b id="s-fire" class="v-fire">0</b></span>
   <span><span class="lbl">water</span><b id="s-water" class="v-water">0</b></span>
-  <span><span class="lbl">obstacles</span><b id="s-obs" class="v-obs">0</b></span>
+  <span><span class="lbl">obs</span><b id="s-obs" class="v-obs">0</b></span>
   <span><span class="lbl">my units</span><b id="s-my">0</b></span>
-  <span><span class="lbl">enemies</span><b id="s-enemy" class="v-enemy">0</b></span>
+  <span><span class="lbl">pos & speed</span><b id="s-unit-pos" class="v-unit-pos">—</b></span>
   <span><span class="lbl">coverage</span><b id="s-cov">—</b></span>
   <span><span class="lbl">cursor</span><b id="s-coord" class="v-coord">—</b></span>
   <span id="status">⏳ connecting…</span>
@@ -67,6 +73,12 @@ canvas { flex: 1; display: block; cursor: crosshair; }
 </div>
 
 <script>
+// ── safe DOM updates ───────────────────────────────────────────────────────
+function setText(id, text) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = text;
+}
+
 // ── constants ──────────────────────────────────────────────────────────────
 const CELL_COLOR = ['#181818','#8a8a8a','#e05020','#2060d0','#303030'];
 
@@ -84,7 +96,7 @@ function getUnitLetter(t) {
   return 'M';
 }
 
-// ── viewport ───────────────────────────────────────────────────────────────
+// ── viewport & unit tracking ───────────────────────────────────────────────
 const canvas = document.getElementById('c');
 const ctx    = canvas.getContext('2d');
 let vx = 0, vy = 0, scale = 8;
@@ -92,6 +104,9 @@ let dragging = false, dragX = 0, dragY = 0;
 let mouseX = 0, mouseY = 0, mouseIn = false;
 let centred  = false;
 let state    = null;
+
+// Track unit movements to calculate cells-per-second speed individually
+const unitTracking = {}; 
 
 function toCanvas(cx, cy, b) {
   return [vx + (cx - b.min_x) * scale, vy + (cy - b.min_y) * scale];
@@ -115,13 +130,12 @@ function autoCenter(b) {
 }
 
 function updateCursor() {
-  const el = document.getElementById('s-coord');
   if (!state || !mouseIn) {
-    el.textContent = '—';
+    setText('s-coord', '—');
     return;
   }
   const [cx, cy] = toMap(mouseX, mouseY, state.bounds);
-  el.textContent = `${cx}, ${cy}`;
+  setText('s-coord', `${cx}, ${cy}`);
 }
 
 // ── render ─────────────────────────────────────────────────────────────────
@@ -175,11 +189,17 @@ function render() {
   }
 
   // my units
+  let unitPosStrings = [];
   for (const u of (my_units || [])) {
     const [px, py] = toCanvas(u.x, u.y, b);
     const r = Math.max(2, scale * 1.0);
     const cx = px + scale/2;
     const cy = py + scale/2;
+    
+    // Add to unit positions string for the top bar (including speed)
+    const letter = getUnitLetter(u.type);
+    const speedStr = u.speed !== undefined ? u.speed.toFixed(1) : "0.0";
+    unitPosStrings.push(`${letter}${u.id}(${u.x},${u.y} | ${speedStr}c/s)`);
 
     ctx.beginPath();
     ctx.arc(cx, cy, r, 0, Math.PI*2);
@@ -189,16 +209,14 @@ function render() {
     ctx.lineWidth   = 1;
     ctx.stroke();
 
-    // Draw the letter (D, T, M)
     if (scale >= 6) {
       ctx.fillStyle = 'rgba(0,0,0,0.85)';
       ctx.font = `bold ${Math.max(8, scale * 1.1)}px sans-serif`;
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(getUnitLetter(u.type), cx, cy + 1);
+      ctx.fillText(letter, cx, cy + 1);
     }
 
-    // Draw the ID and Water below it
     if (scale >= 10) {  
       ctx.fillStyle  = 'rgba(0,0,0,0.8)';
       ctx.font       = `${Math.max(7, scale * 0.55)}px monospace`;
@@ -206,8 +224,7 @@ function render() {
       ctx.textBaseline = 'alphabetic';
       ctx.fillText(String(u.id), cx, py + scale * 2.2);
 
-      // NEW: Draw the water indicator!
-      ctx.fillStyle  = '#59f'; // Light blue
+      ctx.fillStyle  = '#59f'; 
       ctx.font       = `${Math.max(6, scale * 0.45)}px monospace`;
       ctx.fillText(`💧${u.water}`, cx, py + scale * 3.1);
     }
@@ -220,31 +237,74 @@ function render() {
     if (t>0) nknown++;
   }
   const mW = b.max_x - b.min_x + 1, mH = b.max_y - b.min_y + 1;
-  document.getElementById('s-known').textContent = nknown;
-  document.getElementById('s-fire').textContent  = nfire;
-  document.getElementById('s-water').textContent = nwater;
-  document.getElementById('s-obs').textContent   = nobs;
-  document.getElementById('s-my').textContent    = (my_units||[]).length;
-  document.getElementById('s-enemy').textContent = (enemy_units||[]).length;
-  document.getElementById('s-cov').textContent   = (nknown/(mW*mH)*100).toFixed(1) + '%';
+  
+  setText('s-known', nknown);
+  setText('s-fire', nfire);
+  setText('s-water', nwater);
+  setText('s-obs', nobs);
+  setText('s-my', (my_units||[]).length);
+  setText('s-enemy', (enemy_units||[]).length);
+  setText('s-cov', (nknown/(mW*mH)*100).toFixed(1) + '%');
+  setText('s-unit-pos', unitPosStrings.length > 0 ? unitPosStrings.join('   ') : '—');
   
   updateCursor();
 }
 
-// ── SSE ────────────────────────────────────────────────────────────────────
+// ── SSE & Individual Unit Speed Calculation ────────────────────────────────
 const es = new EventSource('/events');
 es.onmessage = e => {
+  const now = performance.now();
   state = JSON.parse(e.data);
+  
+  // Calculate Individual Movement Speeds (cells per second)
+  if (state.my_units && state.my_units.length > 0) {
+    for (const u of state.my_units) {
+      if (!unitTracking[u.id]) {
+        unitTracking[u.id] = { x: u.x, y: u.y, t: now, speed: 0 };
+      }
+      
+      const track = unitTracking[u.id];
+      // If the unit has moved since we last recorded its position
+      if (track.x !== u.x || track.y !== u.y) {
+        const dist = Math.sqrt(Math.pow(u.x - track.x, 2) + Math.pow(u.y - track.y, 2));
+        const secondsElapsed = (now - track.t) / 1000;
+        
+        if (secondsElapsed > 0) {
+            track.speed = dist / secondsElapsed;
+        }
+        
+        // Update its last known spot
+        track.x = u.x;
+        track.y = u.y;
+        track.t = now;
+      } else {
+        // If it hasn't moved in over 1.5 seconds, gradually zero out its speed
+        if (now - track.t > 1500) {
+          track.speed = 0;
+        }
+      }
+      
+      // Inject the calculated speed back into the unit object so render() can display it
+      u.speed = track.speed;
+    }
+  }
+
   autoCenter(state.bounds);
-  const el = document.getElementById('status');
-  el.textContent = '🟢 live';
-  el.style.color = '#4f4';
+  
+  const statusEl = document.getElementById('status');
+  if (statusEl) {
+    statusEl.textContent = '🟢 live';
+    statusEl.style.color = '#4f4';
+  }
   render();
 };
+
 es.onerror = () => {
-  const el = document.getElementById('status');
-  el.textContent = '🔴 disconnected';
-  el.style.color = '#f44';
+  const statusEl = document.getElementById('status');
+  if (statusEl) {
+    statusEl.textContent = '🔴 disconnected';
+    statusEl.style.color = '#f44';
+  }
 };
 
 // ── zoom ───────────────────────────────────────────────────────────────────
@@ -286,7 +346,7 @@ class WebViz:
         obsticles = list(self.map.obsticles.keys())
         units = list(self.map.units.items())
 
-        # UPDATED: Unpack 4 items so it skips unit_type and unit_water when calculating bounds
+        # Unpack 4 items so it skips unit_type and unit_water when calculating bounds
         all_coords = fires + waters + obsticles + [(x, y) for _, (x, y, _, _) in units]
         
         if all_coords:
@@ -301,7 +361,7 @@ class WebViz:
         for x, y in waters: cells.append([x, y, 3])
         for x, y in obsticles: cells.append([x, y, 4])
 
-        # UPDATED: Pass the real unit_water to the dictionary
+        # Pass the real unit_water to the dictionary
         my_units = [{"id": uid, "x": x, "y": y, "type": unit_type, "water": unit_water, "hp": 100} for uid, (x, y, unit_type, unit_water) in units]
 
         return {

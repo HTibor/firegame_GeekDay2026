@@ -67,7 +67,7 @@ def main():
         for unit_id, (x, y, unit_type, units_water) in list(map.units.items()):
             try:
                 print(f"Moving Unit[{unit_id}]")
-                goto(client, unit_id, 10, 10)
+                goto(client, unit_id, 100, 29)
                 time.sleep(0.5)
 
             except KeyboardInterrupt:
@@ -78,14 +78,18 @@ def main():
 
 def goto(client, unit_id, dest_x, dest_y):
     (unit_x, unit_y, unit_type, junk1) = map.units[unit_id]
-    if unit_y < dest_y:
+    # 1. Fix the X axis (Left / Right)
+    if unit_x < dest_x:
         client.send_command(unit_id=unit_id, operation=Operation.RIGHT)
-        return
-    elif unit_y > dest_y:
+    elif unit_x > dest_x:
         client.send_command(unit_id=unit_id, operation=Operation.LEFT)
-    elif unit_x < dest_x:
+        
+    # 2. Fix the Y axis (Up / Down)
+    elif unit_y < dest_y:
+        # If the unit's Y is smaller than destination, it is higher up. It needs to move DOWN.
         client.send_command(unit_id=unit_id, operation=Operation.DOWN)
-    else:
+    elif unit_y > dest_y:
+        # If the unit's Y is larger than destination, it is lower down. It needs to move UP.
         client.send_command(unit_id=unit_id, operation=Operation.UP)
 
 
