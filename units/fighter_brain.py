@@ -55,7 +55,7 @@ class FighterBrain(UnitBrain):
                 self._stuck.mark_blocked(world, x, y, self._last_dx, self._last_dy)
                 self._stuck.clear_history(self.unit_id)
                 self.cluster_target = None
-            self.send_move(client, Operation.NOP)
+            #self.send_move(client, Operation.NOP)
             return
 
         nx, ny = nxt
