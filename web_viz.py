@@ -1,31 +1,8 @@
-"""
-WebViz — real-time web visualiser for the Fire AI explorer.
-
-Serves a single-page canvas app at http://localhost:<PORT>.
-State is pushed to the browser via Server-Sent Events (SSE) every ~150 ms.
-
-Usage:
-    viz = WebViz(get_state=my_callable)
-    viz.start(port=5000)   # launches Flask in a daemon thread
-
-get_state() must return a dict with:
-    {
-      "bounds":       {"min_x", "max_x", "min_y", "max_y"},
-      "cells":        [[x, y, type], ...],
-      "my_units":     [{id, x, y, type, water, hp}, ...],
-      "enemy_units":  [{id, x, y, type, owner}, ...],
-    }
-
-Cell types: 0=unknown  1=empty  2=fire  3=water  4=obstacle
-"""
-
 import json
 import threading
 import time
 from typing import Callable
-
 from flask import Flask, Response
-
 
 _HTML = r"""<!DOCTYPE html>
 <html>
@@ -100,6 +77,13 @@ function myUnitColor(t) {
   return '#ffee00';
 }
 
+function getUnitLetter(t) {
+  t = (t||'').toLowerCase();
+  if (t.includes('cop') || t.includes('drone')) return 'D';
+  if (t.includes('truck')) return 'T';
+  return 'M';
+}
+
 // ── viewport ───────────────────────────────────────────────────────────────
 const canvas = document.getElementById('c');
 const ctx    = canvas.getContext('2d');
@@ -113,7 +97,6 @@ function toCanvas(cx, cy, b) {
   return [vx + (cx - b.min_x) * scale, vy + (cy - b.min_y) * scale];
 }
 
-// Inverse coordinate calculation
 function toMap(px, py, b) {
   return [
     Math.floor((px - vx) / scale) + b.min_x,
@@ -152,7 +135,7 @@ function render() {
   ctx.fillStyle = '#0e0e0e';
   ctx.fillRect(0, 0, W, H);
 
-  // cells (skip fully off-screen for big maps)
+  // cells 
   for (const [x, y, t] of cells) {
     const [px, py] = toCanvas(x, y, b);
     if (px + scale < 0 || py + scale < 0 || px > W || py > H) continue;
@@ -160,7 +143,7 @@ function render() {
     ctx.fillRect(px, py, scale, scale);
   }
 
-  // grid lines when zoomed in
+  // grid lines
   if (scale >= 12) {
     ctx.strokeStyle = 'rgba(255,255,255,0.04)';
     ctx.lineWidth   = 0.5;
@@ -189,53 +172,44 @@ function render() {
     ctx.strokeStyle = '#ff0000';
     ctx.lineWidth   = 1;
     ctx.stroke();
-    if (scale >= 8) {  // ×  marker
-      const cx = px + scale/2, cy = py + scale/2;
-      ctx.strokeStyle = 'rgba(255,255,255,0.8)';
-      ctx.lineWidth   = 1;
-      ctx.beginPath(); ctx.moveTo(cx-2, cy-2); ctx.lineTo(cx+2, cy+2); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(cx+2, cy-2); ctx.lineTo(cx-2, cy+2); ctx.stroke();
-    }
-    if (scale >= 14) {  // owner label
-      ctx.fillStyle = 'rgba(255,100,100,0.9)';
-      ctx.font      = `${Math.max(7, scale * 0.5)}px monospace`;
-      ctx.textAlign = 'center';
-      ctx.fillText(u.owner || '?', px + scale/2, py - 2);
-    }
   }
 
   // my units
   for (const u of (my_units || [])) {
     const [px, py] = toCanvas(u.x, u.y, b);
     const r = Math.max(2, scale * 1.0);
+    const cx = px + scale/2;
+    const cy = py + scale/2;
+
     ctx.beginPath();
-    ctx.arc(px + scale/2, py + scale/2, r, 0, Math.PI*2);
+    ctx.arc(cx, cy, r, 0, Math.PI*2);
     ctx.fillStyle   = myUnitColor(u.type);
     ctx.fill();
     ctx.strokeStyle = 'rgba(0,0,0,0.55)';
     ctx.lineWidth   = 1;
     ctx.stroke();
-    if (scale >= 10) {  // unit id label
+
+    // Draw the letter (D, T, M)
+    if (scale >= 6) {
+      ctx.fillStyle = 'rgba(0,0,0,0.85)';
+      ctx.font = `bold ${Math.max(8, scale * 1.1)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(getUnitLetter(u.type), cx, cy + 1);
+    }
+
+    // Draw the ID and Water below it
+    if (scale >= 10) {  
       ctx.fillStyle  = 'rgba(0,0,0,0.8)';
       ctx.font       = `${Math.max(7, scale * 0.55)}px monospace`;
       ctx.textAlign  = 'center';
-      ctx.fillText(String(u.id), px + scale/2, py + scale * 1.3);
-    }
-  }
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(String(u.id), cx, py + scale * 2.2);
 
-  // my targets
-  for (const t of (state.my_targets || [])) {
-    const [px, py] = toCanvas(t.x, t.y, b);
-    const u = (state.my_units || []).find(u => u.id === t.uid);
-    const uColor = u ? myUnitColor(u.type) : '#fff';
-    ctx.strokeStyle = uColor;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(px, py, scale, scale);
-    if (scale >= 10) {
-      ctx.fillStyle = uColor;
-      ctx.font = `${Math.max(7, scale * 0.5)}px monospace`;
-      ctx.textAlign = 'center';
-      ctx.fillText(String(t.uid), px + scale/2, py + scale/2 + 2);
+      // NEW: Draw the water indicator!
+      ctx.fillStyle  = '#59f'; // Light blue
+      ctx.font       = `${Math.max(6, scale * 0.45)}px monospace`;
+      ctx.fillText(`💧${u.water}`, cx, py + scale * 3.1);
     }
   }
 
@@ -299,50 +273,36 @@ window.addEventListener('resize',     render);
 </body>
 </html>"""
 
-
-# web_viz.py (Keep your imports and _HTML string at the top!)
-
 class WebViz:
-    """
-    Serves the map visualiser at http://localhost:<port>.
-    Call start() once; it launches Flask in a background daemon thread.
-    """
-
     def __init__(self, map_info_obj):
-        """
-        Accepts the main map_info object and translates it automatically.
-        """
-        self.map = map_info_obj  # Store a reference to your map object
+        self.map = map_info_obj 
         self._app = Flask(__name__)
         self._app.add_url_rule('/', 'index', self._index)
         self._app.add_url_rule('/events', 'sse_stream', self._sse_stream)
 
     def _get_state(self):
-        """Translates map_info data to WebViz JSON format automatically."""
-        # Wrap in list() to prevent crashes if background thread updates map while reading
         fires = list(self.map.fires.keys())
         waters = list(self.map.water_sources.keys())
         obsticles = list(self.map.obsticles.keys())
         units = list(self.map.units.items())
 
-        # 1. Calculate map bounds dynamically
-        all_coords = fires + waters + obsticles + [(x, y) for _, (x, y) in units]
+        # UPDATED: Unpack 4 items so it skips unit_type and unit_water when calculating bounds
+        all_coords = fires + waters + obsticles + [(x, y) for _, (x, y, _, _) in units]
         
         if all_coords:
             all_x = [x for x, y in all_coords]
             all_y = [y for x, y in all_coords]
             bounds = {"min_x": min(all_x), "max_x": max(all_x), "min_y": min(all_y), "max_y": max(all_y)}
         else:
-            bounds = {"min_x": 0, "max_x": 10, "min_y": 0, "max_y": 10} # Default before data arrives
+            bounds = {"min_x": 0, "max_x": 10, "min_y": 0, "max_y": 10}
 
-        # 2. Build the cells array (2=fire, 3=water, 4=obstacle)
         cells = []
         for x, y in fires: cells.append([x, y, 2])
         for x, y in waters: cells.append([x, y, 3])
         for x, y in obsticles: cells.append([x, y, 4])
 
-        # 3. Build units array
-        my_units = [{"id": uid, "x": x, "y": y, "type": "firefighter", "water": 100, "hp": 100} for uid, (x, y) in units]
+        # UPDATED: Pass the real unit_water to the dictionary
+        my_units = [{"id": uid, "x": x, "y": y, "type": unit_type, "water": unit_water, "hp": 100} for uid, (x, y, unit_type, unit_water) in units]
 
         return {
             "bounds": bounds,
@@ -361,8 +321,6 @@ class WebViz:
         )
         t.start()
         print(f"[WebViz] Map visualizer running at http://localhost:{port}")
-
-    # ── Flask routes ──────────────────────────────────────────────────────────
 
     def _index(self):
         return _HTML

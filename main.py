@@ -8,6 +8,7 @@ from web_viz import WebViz
 
 our_units = []
 our_commands = []
+DEBUG = True
 
 # 1. Create your map
 map = map_info.map_info()
@@ -27,7 +28,7 @@ def handle_server_message(message):
                     postion_data["Y"],
                     data["Id"],
                     data["UnitType"],
-                    data["CurrentWterLevel"],
+                    data["CurrentWaterLevel"],
                 )
 
                 fire_data = data["SeenFires"]
@@ -41,8 +42,8 @@ def handle_server_message(message):
                         water["Y"],
                         water["IsEmpty"],
                     )
-
-        print(units_data)
+        if DEBUG:
+            print(units_data)
 
 
 def main():
