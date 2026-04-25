@@ -59,7 +59,7 @@ def main():
     client.send_command(unit_id=25, operation=Operation.NOP)
 
     while True:
-        for unit_id, position in list(map.units.items()):
+        for unit_id, (x, y, unit_type) in list(map.units.items()):
             try:
                 print(f"Moving Unit[{unit_id}] RIGHT...")
                 client.send_command(unit_id=unit_id, operation=Operation.RIGHT)
