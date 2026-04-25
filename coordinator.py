@@ -93,6 +93,9 @@ class Coordinator:
         elif unit_kind == "fighter":
             from config import MAX_FIGHTER_RANGE
             best = world.fire_tracker.get_best_cluster(unit_x, unit_y, MAX_FIGHTER_RANGE)
+            if best is None:
+                # no cluster within preferred range — use globally biggest
+                best = world.fire_tracker.get_best_cluster(unit_x, unit_y, max_distance=None)
             if best:
                 tile = self._pick_unassigned_tile(best["tiles"], in_use)
                 if tile:

@@ -16,7 +16,7 @@ class FireTracker:
         prev = self.fire_tiles.get(key, {}).get("hp", hp)
         self.fire_tiles[key] = {"hp": hp, "prev_hp": prev, "last_seen_tick": tick}
 
-    def remove_stale(self, current_tick, stale_threshold=30):
+    def remove_stale(self, current_tick, stale_threshold=300): # may want to fine tune later
         """Drop tiles not seen for stale_threshold ticks."""
         dead = [k for k, v in self.fire_tiles.items()
                 if current_tick - v["last_seen_tick"] >= stale_threshold]

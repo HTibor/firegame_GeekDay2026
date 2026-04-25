@@ -106,13 +106,20 @@ class FighterBrain(UnitBrain):
                 cluster = world.fire_tracker.get_cluster_for_tile(*t)
                 if cluster:
                     self.cluster_target = cluster["centroid"]
+                    print(f"[Fighter:{self.unit_id}] coordinator → cluster centroid {self.cluster_target}")
                     return
 
+        # Try within preferred range first, then fall back to globally biggest cluster
         best = world.fire_tracker.get_best_cluster(x, y, max_distance=MAX_FIGHTER_RANGE)
-        if best:
-            self.cluster_target = best["centroid"]
-        else:
-            self.cluster_target = None
+        if best is None:
+            best = world.fire_tracker.get_best_cluster(x, y, max_distance=None)
+            if best:
+                print(f"[Fighter:{self.unit_id}] no cluster within {MAX_FIGHTER_RANGE} cells"
+                      f" — targeting global best at {best['centroid']} (size={best['size']})")
+        elif best:
+            print(f"[Fighter:{self.unit_id}] targeting cluster at {best['centroid']} (size={best['size']})")
+
+        self.cluster_target = best["centroid"] if best else None
 
     def _cluster_still_alive(self, world):
         if self.cluster_target is None:
@@ -136,10 +143,12 @@ class FighterBrain(UnitBrain):
     def _nearest_fire_in_cluster(self, world, x, y):
         if self.cluster_target is None:
             return None
-        cx, cy = self.cluster_target
-        cluster = world.fire_tracker.get_best_cluster(x, y, max_distance=MAX_FIGHTER_RANGE)
+        # Look up the cluster that contains our target centroid, not just any nearby cluster
+        cx, cy = int(self.cluster_target[0]), int(self.cluster_target[1])
+        cluster = world.fire_tracker.get_cluster_for_tile(cx, cy)
         if cluster is None:
-            return None
-        if not cluster["tiles"]:
+            # centroid tile may not be a fire — find the cluster closest to centroid
+            cluster = world.fire_tracker.get_best_cluster(cx, cy, max_distance=None)
+        if cluster is None or not cluster["tiles"]:
             return None
         return min(cluster["tiles"], key=lambda p: abs(p[0] - x) + abs(p[1] - y))

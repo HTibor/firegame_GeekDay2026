@@ -21,14 +21,11 @@ class DroneBrain(UnitBrain):
         self.state = "FIND_BOUNDS"
         self._stuck = StuckDetector()
 
-        # FIND_BOUNDS state
+        # FIND_BOUNDS state — two sequential phases: go RIGHT, then go DOWN
         self._prev_x = None
         self._prev_y = None
         self._same_x_count = 0
         self._same_y_count = 0
-        self._dropping = False
-        self._drop_remaining = 0
-        self._sweep_dir = 1          # 1=right, -1=left during bounds search
 
         # SWEEP state
         self.waypoints = []          # list of (x, y) to visit in order
@@ -38,74 +35,55 @@ class DroneBrain(UnitBrain):
         self.going_to_water = False
 
     # ── FIND_BOUNDS ────────────────────────────────────────────────────────────
+    # Two clean phases:
+    #   Phase 1 — fly RIGHT until x stops changing (east wall found)
+    #   Phase 2 — fly DOWN  until y stops changing (south wall found)
+    # "didn't move for 2 consecutive ticks" = hit a wall
 
     def _on_FIND_BOUNDS(self, world, client):
-        # if fires already visible, no need to finish bounds first
-        if world.fires:
-            self._build_sweep(world, *self.pos(world)) if (world.east_bound and world.south_bound) else None
-            self.transition("SNIPE")
-            return
-
         p = self.pos(world)
         if p is None:
             return
         x, y = p
 
-        # detect east wall: sent RIGHT but x didn't change
-        if self._prev_x is not None and self._sweep_dir == 1 and not self._dropping:
-            if x == self._prev_x:
-                self._same_x_count += 1
-            else:
+        # ── Phase 1: find east wall ──────────────────────────────────────────
+        if world.east_bound is None:
+            if self._prev_x is not None:
+                if x == self._prev_x:
+                    self._same_x_count += 1
+                else:
+                    self._same_x_count = 0
+            self._prev_x = x
+
+            if self._same_x_count >= 2:
+                world.east_bound = x
                 self._same_x_count = 0
-
-        # detect south wall: sent DOWN but y didn't change
-        if self._prev_y is not None and self._dropping:
-            if y == self._prev_y:
-                self._same_y_count += 1
+                self._prev_y = None   # reset for phase 2
+                print(f"[Drone:{self.unit_id}] east_bound={x}  → now probing south")
             else:
-                self._same_y_count = 0
-
-        self._prev_x, self._prev_y = x, y
-
-        if self._same_x_count >= 2 and world.east_bound is None:
-            world.east_bound = x
-            print(f"[Drone:{self.unit_id}] east_bound={x}  starting drop")
-            self._same_x_count = 0
-            self._start_drop(world)
-
-        if self._same_y_count >= 2 and world.south_bound is None:
-            world.south_bound = y
-            print(f"[Drone:{self.unit_id}] south_bound={y}")
-            self._same_y_count = 0
-
-        # both walls known — build sweep plan and go
-        if world.east_bound is not None and world.south_bound is not None:
-            self._build_sweep(world, x, y)
-            self.transition("SWEEP")
+                self.send_move(client, Operation.RIGHT)
             return
 
-        # keep probing
-        if self._dropping:
-            if self._drop_remaining > 0:
-                self.send_move(client, Operation.DOWN)
-                self._drop_remaining -= 1
-                if self._drop_remaining == 0:
-                    self._dropping = False
-            else:
-                self._dropping = False
-        elif self._sweep_dir == 1:
-            self.send_move(client, Operation.RIGHT)
-        else:
-            if x <= 0:
-                self._start_drop(world)
-            else:
-                self.send_move(client, Operation.LEFT)
+        # ── Phase 2: find south wall ─────────────────────────────────────────
+        if world.south_bound is None:
+            if self._prev_y is not None:
+                if y == self._prev_y:
+                    self._same_y_count += 1
+                else:
+                    self._same_y_count = 0
+            self._prev_y = y
 
-    def _start_drop(self, world):
-        r = world.vision_calibrator.get_radius(self.unit_id)
-        self._drop_remaining = max(1, int(r * 2 + 1))
-        self._dropping = True
-        self._sweep_dir = -self._sweep_dir
+            if self._same_y_count >= 2:
+                world.south_bound = y
+                self._same_y_count = 0
+                print(f"[Drone:{self.unit_id}] south_bound={y}  → building sweep")
+            else:
+                self.send_move(client, Operation.DOWN)
+            return
+
+        # ── Both walls known: build sweep and go ─────────────────────────────
+        self._build_sweep(world, x, y)
+        self.transition("SWEEP")
 
     # ── SWEEP ──────────────────────────────────────────────────────────────────
 
@@ -189,21 +167,22 @@ class DroneBrain(UnitBrain):
         if self.snipe_target is None:
             utype = world.units.get(self.unit_id, (0, 0, "firecopter", 0))[2]
             damage = self._get_damage(utype)
-            targets = world.fire_tracker.get_snipeable(w, damage, x, y)
-            if targets:
-                self.snipe_target = targets[0]
-            elif world.fires:
-                self.snipe_target = min(
-                    world.fires.keys(),
-                    key=lambda p: abs(p[0] - x) + abs(p[1] - y)
-                )
-            else:
-                # no fires — resume sweep if waypoints remain, else patrol
-                if self.waypoints:
-                    self.transition("SWEEP")
+            self.snipe_target = self._pick_snipe_target(world, x, y, w, damage)
+            if self.snipe_target is None:
+                if world.fires:
+                    # nothing killable with current water but fires exist —
+                    # go for nearest fire and do as much damage as possible
+                    self.snipe_target = min(
+                        world.fires.keys(),
+                        key=lambda p: abs(p[0] - x) + abs(p[1] - y)
+                    )
                 else:
-                    self.transition("PATROL")
-                return
+                    # no fires — resume sweep if waypoints remain, else patrol
+                    if self.waypoints:
+                        self.transition("SWEEP")
+                    else:
+                        self.transition("PATROL")
+                    return
 
         tx, ty = self.snipe_target
         if abs(x - tx) <= 1 and abs(y - ty) <= 1:
@@ -242,6 +221,41 @@ class DroneBrain(UnitBrain):
             self.explore(world, client)
 
     # ── helpers ────────────────────────────────────────────────────────────────
+
+    def _pick_snipe_target(self, world, x, y, w, damage):
+        """
+        Pick the best fire tile to snipe, accounting for HP growth while travelling.
+
+        For each fire tile:
+          - growth_per_tick = max(0, current_hp - prev_hp)  (positive → fire is growing)
+          - eta_ticks       ≈ manhattan_dist / DRONE_SPEED
+          - projected_hp    = current_hp + growth_per_tick * eta_ticks
+
+        Primary candidates: fires where projected_hp ≤ w * damage
+                            (we can actually kill it with current water).
+        Among candidates, pick the closest one.
+        Returns None if no fire can be killed with current water.
+        """
+        DRONE_SPEED = 2.0   # ~4 cells/s ÷ 2 ticks/s = 2 cells/tick
+        available_damage = w * damage
+
+        best_dist = float("inf")
+        best_tile = None
+
+        for (fx, fy), info in world.fire_tracker.fire_tiles.items():
+            hp      = info["hp"]
+            prev_hp = info.get("prev_hp", hp)
+            dist    = abs(fx - x) + abs(fy - y)
+
+            growth_per_tick = max(0, hp - prev_hp)
+            eta             = dist / max(1.0, DRONE_SPEED)
+            projected_hp    = hp + growth_per_tick * eta
+
+            if projected_hp <= available_damage and dist < best_dist:
+                best_dist = dist
+                best_tile = (fx, fy)
+
+        return best_tile
 
     def _get_damage(self, utype):
         from config import UNIT_DAMAGE
