@@ -333,6 +333,8 @@ window.addEventListener('resize',     render);
 </body>
 </html>"""
 
+import traceback
+
 class WebViz:
     def __init__(self, map_info_obj):
         self.map = map_info_obj 
@@ -341,49 +343,59 @@ class WebViz:
         self._app.add_url_rule('/events', 'sse_stream', self._sse_stream)
 
     def _get_state(self):
-        fires = list(self.map.fires.keys())
-        waters = list(self.map.water_sources.keys())
-        obsticles = list(self.map.obsticles.keys())
-        units = list(self.map.units.items())
-        explored = list(getattr(self.map, 'explored', set()))
+        try:
+            fires = list(self.map.fires.keys())
+            waters = list(self.map.water_sources.keys())
+            obsticles = list(self.map.obsticles.keys())
+            units = list(self.map.units.items())
+            explored = list(getattr(self.map, 'explored', set()))
 
-        # include explored cells in bounds so the map centers on everything seen
-        all_coords = (fires + waters + obsticles
-                      + [(x, y) for _, (x, y, _, _) in units]
-                      + explored)
+            # include explored cells in bounds so the map centers on everything seen
+            all_coords = (fires + waters + obsticles
+                          + [(x, y) for _, (x, y, _, _) in units]
+                          + explored)
 
-        if all_coords:
-            all_x = [x for x, y in all_coords]
-            all_y = [y for x, y in all_coords]
-            bounds = {"min_x": min(all_x), "max_x": max(all_x),
-                      "min_y": min(all_y), "max_y": max(all_y)}
-        else:
-            bounds = {"min_x": 0, "max_x": 10, "min_y": 0, "max_y": 10}
+            if all_coords:
+                # Force to standard ints (removes numpy int64 issues)
+                all_x = [int(x) for x, y in all_coords]
+                all_y = [int(y) for x, y in all_coords]
+                bounds = {"min_x": min(all_x), "max_x": max(all_x),
+                          "min_y": min(all_y), "max_y": max(all_y)}
+            else:
+                bounds = {"min_x": 0, "max_x": 10, "min_y": 0, "max_y": 10}
 
-        fire_set     = set(fires)
-        water_set    = set(waters)
-        obstacle_set = set(obsticles)
+            fire_set     = set(fires)
+            water_set    = set(waters)
+            obstacle_set = set(obsticles)
 
-        cells = []
-        # grey "explored but empty" background — drawn first so content overdraws it
-        for x, y in explored:
-            if (x, y) not in fire_set and (x, y) not in water_set and (x, y) not in obstacle_set:
-                cells.append([x, y, 1])
-        # actual content on top
-        for x, y in fires:    cells.append([x, y, 2])
-        for x, y in waters:   cells.append([x, y, 3])
-        for x, y in obsticles: cells.append([x, y, 4])
+            cells = []
+            for x, y in explored:
+                if (x, y) not in fire_set and (x, y) not in water_set and (x, y) not in obstacle_set:
+                    cells.append([int(x), int(y), 1])
+            for x, y in fires:    cells.append([int(x), int(y), 2])
+            for x, y in waters:   cells.append([int(x), int(y), 3])
+            for x, y in obsticles: cells.append([int(x), int(y), 4])
 
-        # Pass the real unit_water to the dictionary
-        my_units = [{"id": uid, "x": x, "y": y, "type": unit_type, "water": unit_water, "hp": 100}
-                    for uid, (x, y, unit_type, unit_water) in units]
+            # Bulletproof dictionary generation: casts enums to string so json.dumps doesn't fail
+            my_units = [{
+                "id": str(uid), 
+                "x": int(x), 
+                "y": int(y), 
+                "type": str(unit_type), 
+                "water": int(unit_water) if unit_water is not None else 0, 
+                "hp": 100
+            } for uid, (x, y, unit_type, unit_water) in units]
 
-        return {
-            "bounds": bounds,
-            "cells": cells,
-            "my_units": my_units,
-            "enemy_units": []
-        }
+            return {
+                "bounds": bounds,
+                "cells": cells,
+                "my_units": my_units,
+                "enemy_units": []
+            }
+        except Exception as e:
+            print(f"[WebViz Data Error] Failed to generate map state: {e}")
+            traceback.print_exc()
+            return {"bounds": {"min_x": 0, "max_x": 10, "min_y": 0, "max_y": 10}, "cells": [], "my_units": [], "enemy_units": []}
 
     def start(self, port: int = 5000) -> None:
         t = threading.Thread(
@@ -406,8 +418,10 @@ class WebViz:
                 try:
                     s = json.dumps(self._get_state())
                 except Exception as e:
+                    print(f"[WebViz JSON Error] {e}")
                     time.sleep(0.3)
                     continue
+                
                 if s != last:
                     yield f"data: {s}\n\n"
                     last = s

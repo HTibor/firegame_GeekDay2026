@@ -19,9 +19,9 @@ class UnitBrain:
         print(f"[{self.__class__.__name__}:{self.unit_id}] {self.state} → {new_state}")
         self.state = new_state
 
-    def send_move(self, client, operation):
+    def send_move(self, client, operation, extra_json = ""):
         print(f"  [{self.unit_id}] {operation}")
-        client.send_command(unit_id=self.unit_id, operation=operation)
+        client.send_command(unit_id=self.unit_id, operation=operation, extra_json=extra_json)
 
     def pos(self, world):
         """Return (x, y) of this unit, or None if not in world."""

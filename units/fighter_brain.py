@@ -112,7 +112,7 @@ class FighterBrain(UnitBrain):
         gx, gy = goal
         nxt = bfs_next_step(world, x, y, gx, gy)
         if nxt is None:
-            self.send_move(client, Operation.NOP)
+            #self.send_move(client, Operation.NOP)
             return
         self.send_move(client, direction_to_operation(nxt[0] - x, nxt[1] - y))
 

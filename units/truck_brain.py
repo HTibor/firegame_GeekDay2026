@@ -2,7 +2,7 @@ from units.unit_brain import UnitBrain
 from navigation.pathfinding import bfs_next_step, direction_to_operation
 from navigation.stuck_detector import StuckDetector
 from game_client import Operation
-
+import json
 
 class TruckBrain(UnitBrain):
     """
@@ -18,7 +18,7 @@ class TruckBrain(UnitBrain):
         self.water_target = None     # (x, y) water tile to refill at
         self._last_dx = 0
         self._last_dy = 0
-        self._stale_fire_max_age = 4
+        self._stale_fire_max_age = 0
 
     # ── GOTO_FIRE ──────────────────────────────────────────────────────────────
 
@@ -63,7 +63,7 @@ class TruckBrain(UnitBrain):
                 self._stuck.mark_blocked(world, x, y, self._last_dx, self._last_dy)
                 self._stuck.clear_history(self.unit_id)
                 self.fire_target = None
-            self.send_move(client, Operation.NOP)
+            #self.send_move(client, Operation.NOP)
             return
 
         nx, ny = nxt
@@ -110,7 +110,8 @@ class TruckBrain(UnitBrain):
             #return
 
         print(f"[Truck:{self.unit_id}] EXTINGUISH fire({tx},{ty}) hp={hp} age={age if age is not None else '?'}")
-        self.send_move(client, Operation.EXTINGUISH)
+        targetpayload = json.dumps({"target": {"x": tx, "y": ty}})
+        self.send_move(client, Operation.EXTINGUISH, extra_json=targetpayload)
 
     # ── GOTO_WATER ─────────────────────────────────────────────────────────────
 
@@ -146,7 +147,7 @@ class TruckBrain(UnitBrain):
                 self._stuck.mark_blocked(world, x, y, self._last_dx, self._last_dy)
                 self._stuck.clear_history(self.unit_id)
                 self.water_target = None
-            self.send_move(client, Operation.NOP)
+            # self.send_move(client, Operation.NOP)
             return
 
         nx, ny = nxt

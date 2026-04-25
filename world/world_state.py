@@ -68,7 +68,7 @@ class WorldState:
 
             for fire in seen_fires_raw:
                 fx, fy = fire["X"], fire["Y"]
-                hp = fire.get("Hp", fire.get("HP", fire.get("CurrentHp", 1000)))
+                hp = fire.get("Hp", fire.get("HP", fire.get("CurrentHp")))
                 self.fires[(fx, fy)] = True
                 self.fire_tracker.update_tile(fx, fy, hp, self._tick)
                 seen_cells.append((fx, fy))
