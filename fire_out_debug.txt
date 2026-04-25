@@ -1,0 +1,2667 @@
+[WebViz] Map visualizer running at http://localhost:5000
+ * Serving Flask app 'web_viz'
+ * Debug mode: off
+Connecting to 10.4.4.59:5001 as Prometheus...
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.4.4.80:5000
+[33mPress CTRL+C to quit[0m
+Server replied: Hello team Prometheus from ipv6:[::ffff:10.4.4.80]:47370 ...
+Bidirectional stream started.
+[Status] tick=0  fires=0  clusters=0  east=None  south=None  waters=0
+
+[RAW tick=1] [
+  {
+    "Id": 25,
+    "UnitType": "fireFighter",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 114,
+      "Y": 146
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 100,
+    "CurrentHP": 1000
+  },
+  {
+    "Id": 26,
+    "UnitType": "Firetruck",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 91,
+      "Y": 54
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 20,
+    "CurrentHP": 1500
+  },
+  {
+    "Id": 27,
+    "UnitType": "Firecopter",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 115,
+      "Y": 136
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 5,
+    "CurrentHP": 2000
+  }
+]
+
+
+[RAW tick=2] [
+  {
+    "Id": 25,
+    "UnitType": "fireFighter",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 114,
+      "Y": 146
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 100,
+    "CurrentHP": 1000
+  },
+  {
+    "Id": 26,
+    "UnitType": "Firetruck",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 91,
+      "Y": 54
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 20,
+    "CurrentHP": 1500
+  },
+  {
+    "Id": 27,
+    "UnitType": "Firecopter",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 115,
+      "Y": 136
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 5,
+    "CurrentHP": 2000
+  }
+]
+
+[Coordinator] assigned fighter brain to unit 25 (fireFighter)
+[Coordinator] assigned truck brain to unit 26 (Firetruck)
+[Coordinator] assigned drone brain to unit 27 (Firecopter)
+  [25] Down
+  [26] Left
+  [27] Right
+
+[RAW tick=3] [
+  {
+    "Id": 25,
+    "UnitType": "fireFighter",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 114,
+      "Y": 146
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 100,
+    "CurrentHP": 1000
+  },
+  {
+    "Id": 26,
+    "UnitType": "Firetruck",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 91,
+      "Y": 54
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 20,
+    "CurrentHP": 1500
+  },
+  {
+    "Id": 27,
+    "UnitType": "Firecopter",
+    "Owner": "Prometheus",
+    "Position": {
+      "IsEmpty": false,
+      "X": 115,
+      "Y": 136
+    },
+    "SeenWaters": [],
+    "SeenFires": [],
+    "CurrentWaterLevel": 5,
+    "CurrentHP": 2000
+  }
+]
+
+  [25] Down
+  [26] Left
+  [27] Right
+10.4.4.80 - - [25/Apr/2026 06:58:01] "GET /events HTTP/1.1" 200 -
+127.0.0.1 - - [25/Apr/2026 06:58:01] "GET /events HTTP/1.1" 200 -
+  [25] Down
+  [26] Left
+  [27] Right
+  [25] Down
+  [26] Left
+  [27] Right
+[Status] tick=5  fires=0  clusters=0  east=None  south=None  waters=0
+  [25] fireFighter  pos=(114,147)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 89, 54)  water=20  vision=2.0  state=GOTO_FIRE
+  [27] Firecopter   pos=(119,136)  water=5  vision=2.0  state=FIND_BOUNDS
+  [25] Down
+  [26] Left
+  [27] Right
+  [25] Down
+  [26] Left
+  [27] Right
+  [25] Down
+  [26] Left
+  [27] Right
+  [25] Down
+  [26] Left
+  [27] Right
+[Status] tick=9  fires=0  clusters=0  east=None  south=None  waters=0
+  [25] fireFighter  pos=(114,149)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 85, 54)  water=20  vision=2.0  state=GOTO_FIRE
+  [27] Firecopter   pos=(127,136)  water=5  vision=2.0  state=FIND_BOUNDS
+[World tick=10] fires changed: 0 → 1  waters=0
+  [25] Down
+  [26] Left
+[DroneBrain:27] FIND_BOUNDS → SNIPE
+[World tick=11] fires changed: 1 → 4  waters=0
+  [25] Down
+  [26] Left
+  [27] Up
+[World tick=12] fires changed: 4 → 7  waters=0
+  [25] Down
+  [26] Down
+  [27] Up
+[World tick=13] fires changed: 7 → 10  waters=0
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=13  fires=10  clusters=1  east=None  south=None  waters=0
+  [25] fireFighter  pos=(114,151)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 81, 54)  water=20  vision=4.0  state=GOTO_FIRE → fire(81, 56)
+  [27] Firecopter   pos=(131,134)  water=5  vision=2.0  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+[World tick=15] fires changed: 10 → 11  waters=0
+  [25] Down
+[TruckBrain:26] GOTO_FIRE → FIGHT
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=17  fires=11  clusters=1  east=None  south=None  waters=0
+  [25] fireFighter  pos=(114,153)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 81, 55)  water=18  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(131,126)  water=5  vision=2.0  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=22  fires=11  clusters=1  east=None  south=None  waters=0
+  [25] fireFighter  pos=(114,156)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(131,116)  water=5  vision=2.0  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+[World tick=24] fires changed: 11 → 12  waters=0
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=26  fires=12  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,156)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(131,108)  water=5  vision=4.5  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=30  fires=12  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,154)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(127,104)  water=5  vision=4.5  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=34  fires=12  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,152)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(123,100)  water=5  vision=4.5  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[World tick=36] fires changed: 12 → 15  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[World tick=38] fires changed: 15 → 16  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=38  fires=16  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,150)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(119, 96)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=42  fires=16  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,148)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(115, 92)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[World tick=44] fires changed: 16 → 15  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=46  fires=15  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,146)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=FIGHT → fire(81, 56)
+  [27] Firecopter   pos=(111, 88)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[World tick=49] fires changed: 15 → 11  waters=2
+  [25] Up
+[TruckBrain:26] FIGHT → GOTO_FIRE
+  [27] Up
+  [25] Up
+  [26] Left
+  [27] Left
+[Status] tick=50  fires=11  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,144)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 81, 55)  water=15  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=(109, 82)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] Left
+  [27] Up
+[World tick=52] fires changed: 11 → 15  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=54  fires=15  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,142)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(127,110)
+  [26] Firetruck    pos=( 80, 55)  water=13  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=(105, 78)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[World tick=58] fires changed: 15 → 14  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=58  fires=14  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,140)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(116,98)
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=(101, 74)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=62  fires=14  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,138)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(116,98)
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=( 97, 70)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=66  fires=14  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,136)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(116,98)
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=( 93, 66)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[World tick=68] fires changed: 14 → 13  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[World tick=70] fires changed: 13 → 11  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=70  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,134)  water=100  vision=2.0  state=GOTO_CLUSTER → cluster(116,98)
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=( 89, 62)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[World tick=72] fires changed: 11 → 10  waters=2
+  [25] Down
+  [26] ExtinguishFire
+  [27] Left
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=74  fires=10  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,134)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=( 85, 58)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] Left
+[World tick=77] fires changed: 10 → 11  waters=2
+  [25] Down
+  [26] ExtinguishFire
+  [27] Up
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=78  fires=11  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,136)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=( 81, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=82  fires=11  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,138)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 80, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(78, 55)
+  [27] Firecopter   pos=( 81, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[World tick=84] fires changed: 11 → 9  waters=2
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[World tick=85] fires changed: 9 → 7  waters=2
+  [25] Down
+  [26] Left
+  [27] Left
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=86  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,140)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=11  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=90  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,143)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=94  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,145)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=98  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,147)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=102  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,149)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=106  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,151)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=110  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,153)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=114  fires=7  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,155)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 79, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(77, 54)
+  [27] Firecopter   pos=( 79, 54)  water=5  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[World tick=116] fires changed: 7 → 6  waters=2
+  [25] Down
+  [26] ExtinguishFire
+  [27] Left
+[World tick=117] fires changed: 6 → 3  waters=2
+  [25] Down
+  [26] Left
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=118  fires=3  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,157)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 78, 55)  water=9  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 77, 54)  water=4  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Down
+  [26] ExtinguishFire
+  [27] Right
+[Status] tick=122  fires=3  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,159)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 77, 54)  water=0  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] Right
+  [25] Down
+  [26] ExtinguishFire
+  [27] Down
+  [25] Down
+  [26] ExtinguishFire
+  [27] Right
+  [25] Down
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=126  fires=3  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,161)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 83, 56)  water=0  vision=5.4  state=SNIPE
+  [25] Down
+  [26] ExtinguishFire
+  [27] Right
+[World tick=128] fires changed: 3 → 4  waters=2
+[FighterBrain:25] GOTO_CLUSTER → GRIND
+  [26] ExtinguishFire
+  [27] Down
+  [25] Down
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=130  fires=4  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 87, 60)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+[World tick=132] fires changed: 4 → 5  waters=2
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=134  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 91, 64)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=138  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 95, 68)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=142  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=( 99, 72)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=146  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 78, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(76, 54)
+  [27] Firecopter   pos=(103, 76)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+[World tick=148] fires changed: 5 → 4  waters=2
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[World tick=149] fires changed: 4 → 3  waters=2
+  [25] ExtinguishFire
+  [26] Left
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=150  fires=3  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=7  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(107, 80)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=154  fires=3  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(111, 84)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=158  fires=3  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(115, 88)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[World tick=161] fires changed: 3 → 5  waters=2
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=162  fires=5  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(119, 92)  water=0  vision=5.4  state=SNIPE
+[World tick=163] fires changed: 5 → 6  waters=2
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[World tick=165] fires changed: 6 → 7  waters=2
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=166  fires=7  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,163)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(123, 96)  water=0  vision=5.4  state=SNIPE
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[World tick=169] fires changed: 7 → 6  waters=2
+  [25] Down
+  [26] ExtinguishFire
+  [27] Right
+  [25] Right
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=170  fires=6  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,164)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(127,100)  water=0  vision=5.4  state=SNIPE
+  [25] Right
+  [26] ExtinguishFire
+  [27] Right
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Right
+  [25] Right
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=174  fires=6  clusters=3  east=None  south=None  waters=2
+  [25] fireFighter  pos=(115,164)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(131,104)  water=0  vision=5.4  state=SNIPE
+  [25] Right
+  [26] ExtinguishFire
+  [27] RefillWithWater
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[World tick=177] fires changed: 6 → 7  waters=2
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+  [25] ExtinguishFire
+  [26] ExtinguishFire
+  [27] Down
+[Status] tick=178  fires=7  clusters=4  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,164)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 55)  water=6  vision=4.0  state=GOTO_FIRE → fire(77, 53)
+  [27] Firecopter   pos=(131,110)  water=5  vision=5.4  state=SNIPE
+[World tick=179] fires changed: 7 → 6  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[World tick=180] fires changed: 6 → 5  waters=2
+  [25] Up
+  [26] Down
+  [27] Left
+  [25] Up
+  [26] Down
+  [27] Left
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=182  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,162)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 56)  water=6  vision=4.0  state=GOTO_FIRE → fire(116, 98)
+  [27] Firecopter   pos=(128,111)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=186  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,160)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 60)  water=6  vision=4.0  state=GOTO_FIRE → fire(116, 98)
+  [27] Firecopter   pos=(127,110)  water=1  vision=5.4  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Right
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+[Status] tick=190  fires=5  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,158)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 64)  water=6  vision=4.0  state=GOTO_FIRE → fire(116, 98)
+  [27] Firecopter   pos=(130,108)  water=0  vision=5.4  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] RefillWithWater
+  [25] Up
+  [26] Down
+  [27] Down
+[World tick=193] fires changed: 5 → 4  waters=2
+  [25] Up
+  [26] Down
+  [27] Left
+  [25] Up
+  [26] Down
+  [27] Left
+[Status] tick=194  fires=4  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,156)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 68)  water=6  vision=4.0  state=GOTO_FIRE → fire(117, 97)
+  [27] Firecopter   pos=(129,108)  water=5  vision=5.4  state=SNIPE
+[World tick=195] fires changed: 4 → 1  waters=2
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=198  fires=1  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,154)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 72)  water=6  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(126,110)  water=4  vision=5.4  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] Right
+[Status] tick=202  fires=1  clusters=1  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,152)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 76)  water=6  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(126,110)  water=0  vision=5.4  state=SNIPE
+[World tick=203] fires changed: 1 → 4  waters=2
+  [25] Up
+  [26] Down
+  [27] Right
+[World tick=204] fires changed: 4 → 7  waters=2
+  [25] Up
+  [26] Down
+  [27] Up
+[World tick=205] fires changed: 7 → 11  waters=2
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=206  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,150)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=5  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(130,108)  water=0  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] RefillWithWater
+  [25] Up
+  [26] ExtinguishFire
+  [27] Down
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=210  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,148)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(129,108)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Down
+  [25] Up
+  [26] ExtinguishFire
+  [27] Down
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=214  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,146)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(126,110)  water=4  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] Right
+[Status] tick=218  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,144)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(126,110)  water=0  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Right
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+[Status] tick=222  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,142)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(130,108)  water=0  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] RefillWithWater
+  [25] Up
+  [26] ExtinguishFire
+  [27] Down
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+  [25] Up
+  [26] ExtinguishFire
+  [27] Left
+[Status] tick=226  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,140)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(129,108)  water=5  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Down
+  [25] Up
+  [26] ExtinguishFire
+  [27] Down
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+[Status] tick=230  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,138)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(126,110)  water=4  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] ExtinguishFire
+  [25] Up
+  [26] ExtinguishFire
+  [27] Right
+[Status] tick=234  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,136)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(126,110)  water=0  vision=5.4  state=SNIPE
+  [25] Up
+  [26] ExtinguishFire
+  [27] Right
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Up
+  [25] Up
+  [26] ExtinguishFire
+  [27] Right
+[Status] tick=238  fires=11  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,134)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 77, 79)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(129,107)  water=0  vision=5.4  state=SNIPE
+[World tick=239] fires changed: 11 → 6  waters=2
+  [25] Up
+  [26] Down
+  [27] RefillWithWater
+[World tick=240] fires changed: 6 → 10  waters=2
+  [25] Up
+  [26] Right
+  [27] Left
+  [25] Up
+  [26] Right
+  [27] Left
+[World tick=242] fires changed: 10 → 13  waters=2
+  [25] Up
+  [26] Right
+  [27] Left
+[Status] tick=242  fires=13  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,132)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 78, 80)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(130,107)  water=5  vision=5.4  state=SNIPE
+[World tick=243] fires changed: 13 → 15  waters=2
+  [25] Up
+  [26] Right
+  [27] Down
+[World tick=244] fires changed: 15 → 17  waters=2
+  [25] Up
+  [26] Right
+  [27] ExtinguishFire
+[World tick=245] fires changed: 17 → 18  waters=2
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=246  fires=18  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,130)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 81, 80)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(127,110)  water=5  vision=5.4  state=SNIPE
+[World tick=247] fires changed: 18 → 19  waters=2
+  [25] Up
+  [26] Right
+  [27] ExtinguishFire
+  [25] Up
+  [26] Right
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=250  fires=19  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,128)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 81)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(127,110)  water=5  vision=5.4  state=SNIPE
+[World tick=251] fires changed: 19 → 20  waters=2
+  [25] Up
+  [26] Right
+  [27] ExtinguishFire
+  [25] Up
+  [26] Right
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=254  fires=20  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(116,126)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 82)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(127,110)  water=5  vision=5.4  state=SNIPE
+[World tick=255] fires changed: 20 → 21  waters=2
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[World tick=256] fires changed: 21 → 22  waters=2
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=258  fires=22  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(115,126)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 86)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(127,110)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=262  fires=22  clusters=2  east=None  south=None  waters=2
+  [25] fireFighter  pos=(114,126)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 90)  water=1  vision=4.0  state=GOTO_FIRE → fire(127, 110)
+  [27] Firecopter   pos=(127,110)  water=5  vision=5.4  state=SNIPE
+[World tick=263] fires changed: 22 → 21  waters=6
+  [25] Left
+  [26] Up
+  [27] Left
+  [25] Left
+  [26] Up
+  [27] Left
+  [25] Left
+  [26] Up
+  [27] Left
+  [25] Left
+  [26] Up
+  [27] Left
+[Status] tick=266  fires=21  clusters=1  east=None  south=None  waters=6
+  [25] fireFighter  pos=(112,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 90)  water=1  vision=4.0  state=GOTO_FIRE → fire(81, 82)
+  [27] Firecopter   pos=(122,110)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Up
+  [27] Left
+  [25] Left
+  [26] Up
+  [27] Left
+  [25] Left
+  [26] Up
+  [27] Left
+  [25] Left
+  [26] Up
+  [27] Left
+[Status] tick=270  fires=21  clusters=1  east=None  south=None  waters=6
+  [25] fireFighter  pos=(110,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 86)  water=1  vision=4.0  state=GOTO_FIRE → fire(81, 82)
+  [27] Firecopter   pos=(114,110)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Up
+  [27] Left
+[World tick=272] fires changed: 21 → 19  waters=6
+  [25] Left
+  [26] Up
+  [27] Left
+[World tick=273] fires changed: 19 → 18  waters=6
+  [25] Left
+  [26] Up
+  [27] Left
+[World tick=274] fires changed: 18 → 17  waters=6
+  [25] Left
+  [26] Left
+  [27] Up
+[Status] tick=274  fires=17  clusters=1  east=None  south=None  waters=6
+  [25] fireFighter  pos=(107,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 82)  water=1  vision=4.0  state=GOTO_FIRE → fire(81, 82)
+  [27] Firecopter   pos=(106,110)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Left
+  [27] Up
+  [25] Left
+[TruckBrain:26] GOTO_FIRE → FIGHT
+  [27] Left
+  [25] Left
+  [26] ExtinguishFire
+  [27] Left
+[World tick=278] fires changed: 17 → 16  waters=6
+  [25] Left
+[TruckBrain:26] FIGHT → GOTO_WATER
+  [27] Up
+[Status] tick=278  fires=16  clusters=1  east=None  south=None  waters=6
+  [25] fireFighter  pos=(106,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 82)  water=0  vision=4.0  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=(102,106)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Right
+  [27] Up
+  [25] Left
+  [26] Right
+  [27] Left
+  [25] Left
+  [26] Right
+  [27] Left
+  [25] Left
+  [26] Down
+  [27] Up
+[Status] tick=282  fires=16  clusters=1  east=None  south=None  waters=6
+  [25] fireFighter  pos=(104,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 82)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 98,102)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Left
+  [25] Left
+  [26] Left
+  [27] Left
+  [25] Left
+  [26] Left
+  [27] Up
+[Status] tick=286  fires=16  clusters=1  east=None  south=None  waters=37
+  [25] fireFighter  pos=(101,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 83, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 94, 98)  water=5  vision=5.4  state=SNIPE
+[World tick=287] fires changed: 16 → 17  waters=50
+  [25] Left
+  [26] Down
+  [27] Up
+[World tick=288] fires changed: 17 → 18  waters=67
+  [25] Left
+  [26] Down
+  [27] Left
+  [25] Left
+  [26] Down
+  [27] Left
+  [25] Left
+  [26] Down
+  [27] Up
+[Status] tick=290  fires=18  clusters=1  east=None  south=None  waters=96
+  [25] fireFighter  pos=(100,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 90, 94)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Left
+  [25] Left
+  [26] Down
+  [27] Left
+  [25] Left
+  [26] Down
+  [27] Up
+[Status] tick=294  fires=18  clusters=1  east=None  south=None  waters=107
+  [25] fireFighter  pos=( 98,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 86, 90)  water=5  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Left
+  [25] Left
+  [26] Down
+  [27] Left
+[World tick=298] fires changed: 18 → 22  waters=107
+  [25] Left
+  [26] Down
+  [27] Up
+[Status] tick=298  fires=22  clusters=1  east=None  south=None  waters=107
+  [25] fireFighter  pos=( 95,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 86)  water=5  vision=5.4  state=SNIPE
+[World tick=299] fires changed: 22 → 25  waters=107
+  [25] Left
+  [26] Down
+  [27] Up
+[World tick=300] fires changed: 25 → 26  waters=107
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=302  fires=26  clusters=1  east=None  south=None  waters=107
+  [25] fireFighter  pos=( 94,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 82)  water=3  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] Down
+  [25] Left
+  [26] Down
+  [27] Down
+[Status] tick=306  fires=26  clusters=1  east=None  south=None  waters=107
+  [25] fireFighter  pos=( 92,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 83)  water=0  vision=5.4  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] Down
+  [25] Left
+  [26] Down
+  [27] Down
+[World tick=309] fires changed: 26 → 27  waters=107
+  [25] Left
+  [26] Down
+  [27] Down
+  [25] Left
+  [26] Down
+  [27] Down
+[Status] tick=310  fires=27  clusters=1  east=None  south=None  waters=110
+  [25] fireFighter  pos=( 90,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 91)  water=0  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] RefillWithWater
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Up
+[Status] tick=314  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 88,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 91)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] Up
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=318  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 86,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 83)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=322  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 84,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 82)  water=1  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] Down
+  [25] Left
+  [26] Down
+  [27] Down
+  [25] Left
+  [26] Down
+  [27] Down
+  [25] Left
+  [26] Down
+  [27] Down
+[Status] tick=326  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 82,127)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 87)  water=0  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] RefillWithWater
+  [25] Up
+  [26] Down
+  [27] Up
+[Status] tick=330  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,126)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 94)  water=5  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+[Status] tick=334  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,124)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 87)  water=5  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=338  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,122)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 82)  water=3  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+[Status] tick=342  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,120)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 82)  water=0  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+[Status] tick=346  fires=27  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,118)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 90)  water=0  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] RefillWithWater
+[World tick=348] fires changed: 27 → 26  waters=131
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+[Status] tick=350  fires=26  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,116)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 92)  water=5  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=354  fires=26  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,114)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 84)  water=4  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] Down
+[Status] tick=358  fires=26  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,112)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 81, 84)  water=0  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+  [25] Up
+  [26] Down
+  [27] Down
+[Status] tick=362  fires=26  clusters=1  east=None  south=None  waters=131
+  [25] fireFighter  pos=( 81,110)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 90)  water=0  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] RefillWithWater
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] Up
+[Status] tick=366  fires=26  clusters=1  east=None  south=None  waters=133
+  [25] fireFighter  pos=( 81,108)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 92)  water=5  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] Up
+[World tick=368] fires changed: 26 → 25  waters=133
+  [25] Up
+  [26] Down
+  [27] Up
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=370  fires=25  clusters=1  east=None  south=None  waters=133
+  [25] fireFighter  pos=( 81,106)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=374  fires=25  clusters=1  east=None  south=None  waters=133
+  [25] fireFighter  pos=( 81,104)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Up
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=378  fires=25  clusters=1  east=None  south=None  waters=136
+  [25] fireFighter  pos=( 81,102)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[World tick=381] fires changed: 25 → 26  waters=139
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=382  fires=26  clusters=1  east=None  south=None  waters=139
+  [25] fireFighter  pos=( 79,102)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+[World tick=383] fires changed: 26 → 23  waters=139
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[World tick=384] fires changed: 23 → 22  waters=139
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=386  fires=22  clusters=1  east=None  south=None  waters=139
+  [25] fireFighter  pos=( 79,104)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[World tick=389] fires changed: 22 → 20  waters=142
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[World tick=390] fires changed: 20 → 18  waters=142
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=390  fires=18  clusters=1  east=None  south=None  waters=142
+  [25] fireFighter  pos=( 77,104)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=394  fires=18  clusters=1  east=None  south=None  waters=144
+  [25] fireFighter  pos=( 76,105)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=398  fires=18  clusters=1  east=None  south=None  waters=145
+  [25] fireFighter  pos=( 75,106)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=402  fires=18  clusters=1  east=None  south=None  waters=148
+  [25] fireFighter  pos=( 73,106)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=406  fires=18  clusters=1  east=None  south=None  waters=149
+  [25] fireFighter  pos=( 72,107)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=410  fires=18  clusters=1  east=None  south=None  waters=151
+  [25] fireFighter  pos=( 71,108)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=414  fires=18  clusters=1  east=None  south=None  waters=153
+  [25] fireFighter  pos=( 69,108)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=418  fires=18  clusters=1  east=None  south=None  waters=155
+  [25] fireFighter  pos=( 68,109)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=422  fires=18  clusters=1  east=None  south=None  waters=158
+  [25] fireFighter  pos=( 66,109)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=426  fires=18  clusters=1  east=None  south=None  waters=160
+  [25] fireFighter  pos=( 65,110)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+[World tick=427] fires changed: 18 → 19  waters=161
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[World tick=430] fires changed: 19 → 20  waters=162
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=430  fires=20  clusters=1  east=None  south=None  waters=162
+  [25] fireFighter  pos=( 63,110)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=434  fires=20  clusters=1  east=None  south=None  waters=165
+  [25] fireFighter  pos=( 61,110)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=438  fires=20  clusters=1  east=None  south=None  waters=166
+  [25] fireFighter  pos=( 60,111)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=442  fires=20  clusters=1  east=None  south=None  waters=168
+  [25] fireFighter  pos=( 59,112)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=446  fires=20  clusters=1  east=None  south=None  waters=170
+  [25] fireFighter  pos=( 57,112)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=450  fires=20  clusters=1  east=None  south=None  waters=172
+  [25] fireFighter  pos=( 56,113)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=454  fires=20  clusters=1  east=None  south=None  waters=174
+  [25] fireFighter  pos=( 54,113)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=458  fires=20  clusters=1  east=None  south=None  waters=176
+  [25] fireFighter  pos=( 53,114)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=462  fires=20  clusters=1  east=None  south=None  waters=179
+  [25] fireFighter  pos=( 51,114)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=466  fires=20  clusters=1  east=None  south=None  waters=181
+  [25] fireFighter  pos=( 50,115)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=470  fires=20  clusters=1  east=None  south=None  waters=182
+  [25] fireFighter  pos=( 49,116)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=474  fires=20  clusters=1  east=None  south=None  waters=185
+  [25] fireFighter  pos=( 47,116)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=478  fires=20  clusters=1  east=None  south=None  waters=186
+  [25] fireFighter  pos=( 46,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=482  fires=20  clusters=1  east=None  south=None  waters=188
+  [25] fireFighter  pos=( 44,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=486  fires=20  clusters=1  east=None  south=None  waters=190
+  [25] fireFighter  pos=( 42,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=490  fires=20  clusters=1  east=None  south=None  waters=192
+  [25] fireFighter  pos=( 40,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=494  fires=20  clusters=1  east=None  south=None  waters=194
+  [25] fireFighter  pos=( 38,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=498  fires=20  clusters=1  east=None  south=None  waters=196
+  [25] fireFighter  pos=( 36,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=502  fires=20  clusters=1  east=None  south=None  waters=198
+  [25] fireFighter  pos=( 34,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+  [25] Left
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=506  fires=20  clusters=1  east=None  south=None  waters=200
+  [25] fireFighter  pos=( 32,117)  water=100  vision=2.0  state=GRIND → cluster(115,163)
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+[FighterBrain:25] GRIND → GOTO_CLUSTER
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=510  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,118)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=514  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,120)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=518  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,122)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=522  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,124)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=526  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,126)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=530  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,128)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=534  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,130)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=538  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,132)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=542  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,134)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=546  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,136)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=550  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,138)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=554  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,140)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=558  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,142)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=563  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,144)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=567  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,146)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=571  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,148)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=575  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,150)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=579  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,152)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=583  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,154)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=587  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,156)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=591  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,158)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=595  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,160)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=599  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,162)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=603  fires=20  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,164)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+[World tick=604] fires changed: 20 → 21  waters=201
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=607  fires=21  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,166)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+[Status] tick=611  fires=21  clusters=1  east=None  south=None  waters=201
+  [25] fireFighter  pos=( 31,168)  water=100  vision=2.0  state=GOTO_CLUSTER
+  [26] Firetruck    pos=( 82, 84)  water=0  vision=4.2  state=GOTO_WATER → fire(81, 82)
+  [27] Firecopter   pos=( 82, 84)  water=5  vision=5.7  state=SNIPE
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+  [25] Down
+  [26] Down
+  [27] ExtinguishFire
+
+Disconnecting...
+
+Stream disconnected: Channel closed!
