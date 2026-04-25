@@ -66,8 +66,8 @@ def main():
     while True:
         for unit_id, (x, y, unit_type, units_water) in list(map.units.items()):
             try:
-                print(f"Moving Unit[{unit_id}] RIGHT...")
-                client.send_command(unit_id=unit_id, operation=Operation.RIGHT)
+                print(f"Moving Unit[{unit_id}]")
+                goto(client, unit_id, 10, 10)
                 time.sleep(0.5)
 
             except KeyboardInterrupt:
@@ -76,6 +76,18 @@ def main():
                 return
 
 
+def goto(client, unit_id, dest_x, dest_y):
+    (unit_x, unit_y, unit_type, junk1) = map.units[unit_id]
+    if unit_y < dest_y:
+        client.send_command(unit_id=unit_id, operation=Operation.RIGHT)
+        return
+    elif unit_y > dest_y:
+        client.send_command(unit_id=unit_id, operation=Operation.LEFT)
+    elif unit_x < dest_x:
+        client.send_command(unit_id=unit_id, operation=Operation.DOWN)
+    else:
+        client.send_command(unit_id=unit_id, operation=Operation.UP)
+
+
 if __name__ == "__main__":
     main()
-
