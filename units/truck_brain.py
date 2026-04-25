@@ -103,11 +103,11 @@ class TruckBrain(UnitBrain):
             self.transition("GOTO_FIRE")
             return
 
-        if age is not None and age > self._stale_fire_max_age:
-            print(f"[Truck:{self.unit_id}] target stale fire({tx},{ty}) hp={hp} age={age} -> retarget")
-            self.fire_target = None
-            self.transition("GOTO_FIRE")
-            return
+        #if age is not None and age > self._stale_fire_max_age:
+         #   print(f"[Truck:{self.unit_id}] target stale fire({tx},{ty}) hp={hp} age={age} -> retarget")
+          #  self.fire_target = None
+           # self.transition("GOTO_FIRE")
+            #return
 
         print(f"[Truck:{self.unit_id}] EXTINGUISH fire({tx},{ty}) hp={hp} age={age if age is not None else '?'}")
         self.send_move(client, Operation.EXTINGUISH)
