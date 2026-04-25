@@ -72,14 +72,27 @@ class WorldState:
                 self.fires[(fx, fy)] = True
                 self.fire_tracker.update_tile(fx, fy, hp, self._tick)
                 seen_cells.append((fx, fy))
+                self.explored.add((fx, fy))   # remember we've seen this cell
 
             for water in seen_waters_raw:
                 wx, wy = water["X"], water["Y"]
                 is_empty = water.get("IsEmpty", False)
                 self.water_sources[(wx, wy)] = is_empty
                 seen_cells.append((wx, wy))
+                self.explored.add((wx, wy))   # remember we've seen this cell
 
             self.vision_calibrator.record(uid, ux, uy, seen_cells)
+
+            # sweep the vision circle and mark every cell inside as explored
+            radius = self.vision_calibrator.get_radius(uid)
+            r = int(radius) + 1
+            r2 = radius * radius
+            for dx in range(-r, r + 1):
+                for dy in range(-r, r + 1):
+                    if dx * dx + dy * dy <= r2:
+                        nx, ny = ux + dx, uy + dy
+                        if nx >= 0 and ny >= 0:
+                            self.explored.add((nx, ny))
 
         # remove fires no longer seen
         self.fire_tracker.remove_stale(self._tick)
