@@ -18,8 +18,11 @@ class FireTracker:
 
     def remove_stale(self, current_tick, stale_threshold=300): # may want to fine tune later
         """Drop tiles not seen for stale_threshold ticks."""
-        dead = [k for k, v in self.fire_tiles.items()
-                if current_tick - v["last_seen_tick"] >= stale_threshold]
+        dead = [
+            k
+            for k, v in self.fire_tiles.items()
+            if current_tick - v["last_seen_tick"] >= stale_threshold
+        ]
         for k in dead:
             del self.fire_tiles[k]
 
@@ -53,17 +56,22 @@ class FireTracker:
             cy = sum(y for _, y in group) / len(group)
 
             # growth rate: fraction of tiles whose hp dropped since last seen
-            shrinking = sum(1 for k in group
-                            if self.fire_tiles[k]["hp"] < self.fire_tiles[k]["prev_hp"])
+            shrinking = sum(
+                1
+                for k in group
+                if self.fire_tiles[k]["hp"] < self.fire_tiles[k]["prev_hp"]
+            )
             growth = shrinking / len(group)  # 0‥1, higher = enemy is hitting it too
 
-            clusters.append({
-                "tiles": group,
-                "centroid": (cx, cy),
-                "size": len(group),
-                "growth": growth,
-                "is_enemy_contested": growth > 0.3,
-            })
+            clusters.append(
+                {
+                    "tiles": group,
+                    "centroid": (cx, cy),
+                    "size": len(group),
+                    "growth": growth,
+                    "is_enemy_contested": growth > 0.3,
+                }
+            )
 
         self.clusters = sorted(clusters, key=lambda c: -c["size"])
 

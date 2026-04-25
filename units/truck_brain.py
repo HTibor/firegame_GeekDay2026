@@ -43,10 +43,10 @@ class TruckBrain(UnitBrain):
             return
 
         # opportunistic snipe check
-        snipe = self._check_opportunistic_snipe(world, x, y, fx, fy)
-        if snipe:
-            self.send_move(client, Operation.EXTINGUISH)
-            return
+        #snipe = self._check_opportunistic_snipe(world, x, y, fx, fy)
+        #if snipe:
+         #   self.send_move(client, Operation.EXTINGUISH)
+          #  return
 
         # approach cell — path to adjacent passable cell
         goal = world.find_approach_cell(fx, fy)
@@ -168,12 +168,12 @@ class TruckBrain(UnitBrain):
         if not world.fires:
             return None
         return min(world.fires.keys(), key=lambda p: abs(p[0] - x) + abs(p[1] - y))
-
+"""
     def _check_opportunistic_snipe(self, world, x, y, dest_x, dest_y):
-        """
+        
         Return True if a nearly-dead fire is within 3 tiles of our current
         path straight-line (cheap distance check to midpoint of journey).
-        """
+        
         w = self.water(world)
         if w == 0:
             return False
@@ -192,7 +192,7 @@ class TruckBrain(UnitBrain):
             if abs(fx - x) + abs(fy - y) <= 2:
                 return True
         return False
-
+"""
     def transition(self, new_state):
         # reset refill counter on leaving REFILL
         if self.state == "REFILL":
